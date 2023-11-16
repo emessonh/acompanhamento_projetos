@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Editando {{task.title}}: {% endblock  %}
+
+{% block content %}
+<div class='offset-1 col-10 list-div'>
+    <h1>Editando projeto: </h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type='submit' id='criar-tarefa' class='btn btn-success' value='Editar Projeto'>
+    </form>
+</div>
+{% endblock %}
