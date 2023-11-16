@@ -12,13 +12,13 @@ def taskList(request):
 
     if search:
         tasks_list = Task.objects.filter(title__icontains=search).order_by('-created_at')
-        paginator = Paginator(tasks_list, 3)
+        paginator = Paginator(tasks_list, 7)
         page = request.GET.get('page')
         tasks = paginator.get_page(page)
         return render(request, 'tasks/list.html', {'tasks':tasks, 'search':search})
     else:
         tasks_list = Task.objects.all().order_by('-created_at')
-        paginator = Paginator(tasks_list, 3)
+        paginator = Paginator(tasks_list, 7)
         page = request.GET.get('page')
         tasks = paginator.get_page(page)
 
