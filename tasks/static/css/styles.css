@@ -1,6 +1,5 @@
 .container-fluid{
     padding: 0;
-    
 }
 
 /* Navbar */
@@ -8,7 +7,6 @@
 .navbar{
     border-bottom: 1px solid #333;
     margin-bottom: 20px;
-    height: 7vh;
 }
 
 .navbar-nav{
@@ -46,7 +44,7 @@
     font-size: 20px;
     height: 50px;
     padding-top: 10px;
-    border: 1px dashed #ccc;
+    border-bottom: 1px outset #ccc;
 }
 
 .task-item i{
@@ -77,7 +75,7 @@
 
 footer{
     background-color: #333;
-    height: 20.9vh;
+    height: 22vh;
     border-top: 2px solid #202020;
     bottom: 0;
     width: 100%;
@@ -123,6 +121,16 @@ ul.messages li{
     font-size: 18px;
     margin-left: 5px;
     margin-right: 5px;
+}
+
+/* Botões página inicial */
+
+.trash-btn{
+    color: black;
+}
+
+.edit-btn{
+    color: black;
 }
 
 

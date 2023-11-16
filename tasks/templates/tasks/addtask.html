@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class='offset-1 col-10 list-div'>
-    <h1>Adicione a seu novo projeto: </h1>
+    <h1>Adicione seu novo projeto: </h1>
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
