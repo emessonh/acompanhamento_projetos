@@ -16,19 +16,21 @@ def listagemProjetos(request):
 
     return render(request, 'projetos/home.html', {'projetos':projects})
 
-
-def adicionarProjeto(request):
+def addProjeto(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
 
         if form.is_valid():
-            task = form.save()
+            projeto = form.save()
             messages.success(request, 'Tarefa adicionada com sucesso')
+            return redirect('/')
+        else:
+            messages.error(request, 'Error ao adicionar tarefa')
             return redirect('/')
         
     else:
         form = ProjectForm()
-        return render(request, 'projetos/addproject.html', {'form': form})
+        return render(request, 'projetos/addprojeto.html', {'form': form})
     
 # Setores
     

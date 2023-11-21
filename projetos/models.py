@@ -19,15 +19,15 @@ class Setor(models.Model):
 class Projeto(models.Model):
     nome = models.CharField(max_length=100)
     sobre = models.TextField(blank=True, null=True)
-    status_id = models.ForeignKey(Status, on_delete=models.CASCADE)
+    status_id = models.ForeignKey(Status, on_delete=models.CASCADE) # revisar
     situacao_atual = models.TextField(blank=True, null=True)
     prioridade = models.CharField(max_length=5)
-    prazo = models.DateField()
+    prazo = models.DateField() # revisar
     link = models.CharField(max_length=100)
     proximos_passos = models.TextField(blank=True, null=True)
     impedimentos = models.TextField(blank=True, null=True)
-    sistema_critico = models.BooleanField(default=False)
-    setor_id = models.ForeignKey(Setor, on_delete=models.CASCADE)
+    sistema_critico = models.BooleanField(default=False) # revisar
+    setor_id = models.ForeignKey(Setor, on_delete=models.CASCADE) # revisar
     pasta_responsavel = models.CharField(max_length=8)
     
     
