@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Lista de tarefas{% endblock  %}
+{% block title %}Lista de status{% endblock  %}
 
 {% block content %}
 <div class='offset-1 col-10 list-div'>
-    <h1>Lista de Tarefas</h1>
-    
+    <h1>Lista de Status</h1>
+
     {% if messages %}
         <ul class="messages">
             {% for message in messages %}
@@ -15,15 +15,15 @@
             {% endfor %}
         </ul>        
     {% endif %}
-        
+    
     <ul class='task-list'>
-        {% for project in projects %}
+        {% for status in lista_status %}
         <li class='task-item'>
-            <span><a href='/task/{{task.id}}' style="text-decoration: none;">{{project.nome}}</a></span>
-            <a href="delete/{{task.id}}" class="delete-btn">
+            <span><a href='/status/{{status.id}}' style="text-decoration: none;">{{status.descricao}}</a></span>
+            <a href="delstatus/{{status.id}}" class="delete-btn">
                 <span><i class="bi bi-trash-fill trash-btn"></i></span>
             </a>
-            <a href="edit/{{task.id}}" >
+            <a href="editstatus/{{status.id}}" >
                 <span><i class="bi bi-pencil-square edit-btn" ></i></span>
             </a>
             
@@ -32,24 +32,24 @@
     </ul>
 
         <div class='col-2 add-div'>
-            <a id='add-task' href="addproject/">
-                <i class="bi bi-plus"></i>Adicionar Projeto
+            <a id='add-task' href="addstatus/">
+                <i class="bi bi-plus"></i>Adicionar Status
             </a>
         </div>
         
     <div class="paginator">
         <span class="step-links">
             
-            {% if projects.has_previous %}
-                <a href="?page={{projects.previous_page_number}}"><i class="bi bi-arrow-left"></i></a>             
+            {% if lista_status.has_previous %}
+                <a href="?page={{lista_status.previous_page_number}}"><i class="bi bi-arrow-left"></i></a>             
             {% endif %}
     
             <span class="current">
-                {{projects.number}} de {{projects.paginator.num_pages}}
+                {{lista_status.number}} de {{lista_status.paginator.num_pages}}
             </span>
     
-            {% if projects.has_next %}
-                <a href="?page={{projects.next_page_number}}"><i class="bi bi-arrow-right"></i></a>             
+            {% if lista_status.has_next %}
+                <a href="?page={{lista_status.next_page_number}}"><i class="bi bi-arrow-right"></i></a>             
             {% endif %}            
                 
         </span>
@@ -58,4 +58,3 @@
 </div>
 
 {% endblock %}
-

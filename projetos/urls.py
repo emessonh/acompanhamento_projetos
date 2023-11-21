@@ -20,4 +20,16 @@ from . import views
 
 urlpatterns = [
     path('', views.listagemProjetos),
+    # Projetos
+    path('addproject/', views.adicionarProjeto),
+    # Setores
+    path('setores/', views.listarSetores),
+    path('setores/addsetor/', views.addSetor),
+    path('setores/delsetor/<int:id>', views.delSetor),
+    path('setores/editsetor/<int:id>', views.editSetor),
+    # Status
+    path('status/', views.listaStatus),
+    path('status/addstatus/', views.addStatus),
+    path('status/delstatus/<int:id>', views.delStatus),
+    path('status/editstatus/<int:id>', views.editStatus),
 ]

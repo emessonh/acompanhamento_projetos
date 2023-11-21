@@ -2,15 +2,15 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}Adicinando Tarefa{% endblock  %}
+{% block title %}Adicinando Setor{% endblock  %}
 
 {% block content %}
 <div class='offset-1 col-10 list-div'>
-    <h1>Adicione a sua nova tarefa: </h1>
+    <h1>Adicionando setor: </h1>
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type='submit' id='criar-tarefa' class='btn btn-success' value='Criar tarefa'>
+        <input type='submit' id='criar-tarefa' class='btn btn-success' value='Adicionar Setor'>
     </form>
 </div>
 {% endblock %}
