@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Projeto 
 from django.core.paginator import Paginator
 from django.contrib import messages
 from .forms import ProjectForm, SetorForm, StatusForm
-from .models import Setor, Status
+from .models import Setor, Status, Projeto 
 
 # Projetos
 
@@ -19,9 +18,26 @@ def listagemProjetos(request):
 def addProjeto(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
-
         if form.is_valid():
-            projeto = form.save()
+
+            dados_form = form.cleaned_data
+            nome = dados_form['nome']
+            sobre = dados_form['sobre']
+            status_id = dados_form['status_id']
+            situacao_atual = dados_form['situacao_atual']
+            prioridade = dados_form['prioridade']
+            prazo = dados_form['prazo']
+            link = dados_form['link']
+            proximos_passos = dados_form['proximos_passos']
+            impedimentos = dados_form['impedimentos']
+            sistema_critico = dados_form['sistema_critico']
+            setor_id = dados_form['setor_id']
+            pasta_responsavel = dados_form['pasta_responsavel']
+
+            projeto = Projeto(nome=nome, sobre=sobre, status_id=status_id, situacao_atual=situacao_atual, 
+                            prioridade=prioridade, prazo=prazo, link=link, proximos_passos=proximos_passos, impedimentos=impedimentos, sistema_critico=sistema_critico, 
+                            setor_id=setor_id, pasta_responsavel=pasta_responsavel) 
+            projeto.save()
             messages.success(request, 'Tarefa adicionada com sucesso')
             return redirect('/')
         else:

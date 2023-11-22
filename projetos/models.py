@@ -6,14 +6,14 @@ class Status(models.Model):
     descricao = models.CharField(max_length=100)
     cor = models.CharField(max_length=10)
     
-    def _str_(self):
+    def __str__(self):
         return self.descricao
 
 class Setor(models.Model):
     nome = models.CharField(max_length=100)
         
-    def _str_(self):
-        return self.descricao
+    def __str__(self):
+        return self.nome
 
 
 class Projeto(models.Model):

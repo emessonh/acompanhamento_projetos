@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Lista de tarefas{% endblock  %}
+{% block title %}Lista de Projetos{% endblock  %}
 
 {% block content %}
 <div class='offset-1 col-10 list-div'>
@@ -17,7 +17,7 @@
     {% endif %}
         
     <ul class='task-list'>
-        {% for project in projects %}
+        {% for project in projetos %}
         <li class='task-item'>
             <span><a href='/task/{{task.id}}' style="text-decoration: none;">{{project.nome}}</a></span>
             <a href="delete/{{task.id}}" class="delete-btn">
@@ -40,16 +40,16 @@
     <div class="paginator">
         <span class="step-links">
             
-            {% if projects.has_previous %}
-                <a href="?page={{projects.previous_page_number}}"><i class="bi bi-arrow-left"></i></a>             
+            {% if projetos.has_previous %}
+                <a href="?page={{projetos.previous_page_number}}"><i class="bi bi-arrow-left"></i></a>             
             {% endif %}
     
             <span class="current">
-                {{projects.number}} de {{projects.paginator.num_pages}}
+                {{projetos.number}} de {{projetos.paginator.num_pages}}
             </span>
     
-            {% if projects.has_next %}
-                <a href="?page={{projects.next_page_number}}"><i class="bi bi-arrow-right"></i></a>             
+            {% if projetos.has_next %}
+                <a href="?page={{projetos.next_page_number}}"><i class="bi bi-arrow-right"></i></a>             
             {% endif %}            
                 
         </span>
