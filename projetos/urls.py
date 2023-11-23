@@ -19,9 +19,11 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.listagemProjetos),
     # Projetos
+    path('', views.listagemProjetos),
     path('addprojeto/', views.addProjeto),
+    path('editprojeto/<int:id>', views.editProjeto),
+    path('delprojeto/<int:id>', views.delProjeto),
     # Setores
     path('setores/', views.listarSetores),
     path('setores/addsetor/', views.addSetor),

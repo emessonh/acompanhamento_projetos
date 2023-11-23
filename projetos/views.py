@@ -17,9 +17,13 @@ def listagemProjetos(request):
 
 def addProjeto(request):
     if request.method == 'POST':
+        # Recebe o formulário
         form = ProjectForm(request.POST)
-        if form.is_valid():
 
+        # Verifica se é válido
+        if form.is_valid():
+            
+            # Tratando os dados 
             dados_form = form.cleaned_data
             nome = dados_form['nome']
             sobre = dados_form['sobre']
@@ -34,9 +38,12 @@ def addProjeto(request):
             setor_id = dados_form['setor_id']
             pasta_responsavel = dados_form['pasta_responsavel']
 
+            # Instancia o projeto
             projeto = Projeto(nome=nome, sobre=sobre, status_id=status_id, situacao_atual=situacao_atual, 
                             prioridade=prioridade, prazo=prazo, link=link, proximos_passos=proximos_passos, impedimentos=impedimentos, sistema_critico=sistema_critico, 
-                            setor_id=setor_id, pasta_responsavel=pasta_responsavel) 
+                            setor_id=setor_id, pasta_responsavel=pasta_responsavel)
+
+            # Salva  
             projeto.save()
             messages.success(request, 'Tarefa adicionada com sucesso')
             return redirect('/')
@@ -47,7 +54,63 @@ def addProjeto(request):
     else:
         form = ProjectForm()
         return render(request, 'projetos/addprojeto.html', {'form': form})
-    
+
+def editProjeto(request, id):
+    projeto = get_object_or_404(Projeto, pk=id)
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+             # Tratando os dados 
+            dados_form = form.cleaned_data
+            nome = dados_form['nome']
+            sobre = dados_form['sobre']
+            status_id = dados_form['status_id']
+            situacao_atual = dados_form['situacao_atual']
+            prioridade = dados_form['prioridade']
+            prazo = dados_form['prazo']
+            link = dados_form['link']
+            proximos_passos = dados_form['proximos_passos']
+            impedimentos = dados_form['impedimentos']
+            sistema_critico = dados_form['sistema_critico']
+            setor_id = dados_form['setor_id']
+            pasta_responsavel = dados_form['pasta_responsavel']
+
+            # modifica o projeto
+            projeto.nome = nome
+            projeto.sobre = sobre
+            projeto.status_id = status_id
+            projeto.situacao_atual = situacao_atual
+            projeto.prioridade = prioridade
+            projeto.prazo = prazo
+            projeto.link = link
+            projeto.proximos_passos = proximos_passos
+            projeto.impedimentos = impedimentos
+            projeto.sistema_critico = sistema_critico
+            projeto.setor_id = setor_id
+            projeto.pasta_responsavel = pasta_responsavel
+
+            # Salva  
+            projeto.save()
+            messages.success(request, 'Projeto editado com sucesso')
+            return redirect('/')
+        else:
+            messages.error(request, 'Error ao editar projeto')
+            return redirect('/')
+
+    else:
+        dados_projeto = {'nome': projeto.nome, 'sobre': projeto.sobre, 'status_id': projeto.status_id, 'situacao_atual': projeto.situacao_atual, 'prioridade': projeto.prioridade,
+        'prazo': projeto.prazo, 'link': projeto.link, 'proximos_passos': projeto.proximos_passos, 'impedimentos': projeto.impedimentos, 'sistema_critico': projeto.sistema_critico,
+        'setor_id': projeto.setor_id, 'pasta_responsavel': projeto.pasta_responsavel}
+        form = ProjectForm(initial=dados_projeto)
+        return render(request, 'projetos/editprojeto.html', {'form':form})
+
+def delProjeto(request, id):
+    projeto = get_object_or_404(Projeto, pk=id)
+    projeto.delete()
+    messages.success(request, 'Projeto deletado com sucesso')
+    return redirect('/')
+
+# def showProjeto(request, id)
 # Setores
     
 def listarSetores(request):
@@ -73,8 +136,8 @@ def addSetor(request):
         return render(request, 'setor/addsetor.html', {'form': form})
     
 def delSetor(request, id):
-    task = get_object_or_404(Setor, pk=id)
-    task.delete()
+    setor = get_object_or_404(Setor, pk=id)
+    setor.delete()
     messages.success(request, 'Setor excluído com sucesso')
     return redirect('/setores/')
 
