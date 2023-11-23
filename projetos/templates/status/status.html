@@ -19,7 +19,7 @@
     <ul class='task-list'>
         {% for status in lista_status %}
         <li class='task-item'>
-            <span><a href='/status/{{status.id}}' style="text-decoration: none;">{{status.descricao}}</a></span>
+            <span>{{status.descricao}}</span>
             <a href="delstatus/{{status.id}}" class="delete-btn">
                 <span><i class="bi bi-trash-fill trash-btn"></i></span>
             </a>

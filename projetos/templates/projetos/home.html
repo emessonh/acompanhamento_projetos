@@ -19,7 +19,7 @@
     <ul class='task-list'>
         {% for project in projetos %}
         <li class='task-item'>
-            <span><a href='/projeto/{{project.id}}' style="text-decoration: none;">{{project.nome}}</a></span>
+            <span>{{project.nome}}</span>
             <a href="delprojeto/{{project.id}}" class="delete-btn">
                 <span><i class="bi bi-trash-fill trash-btn"></i></span>
             </a>

@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Lista de setores{% endblock  %}
+{% block title %}Lista de desenvolvedores{% endblock  %}
 
 {% block content %}
 <div class='offset-1 col-10 list-div'>
-    <h1>Lista de Setores</h1>
+    <h1>Lista de desenvolvedores</h1>
 
     {% if messages %}
         <ul class="messages">
@@ -17,13 +17,13 @@
     {% endif %}
     
     <ul class='task-list'>
-        {% for setor in setores %}
+        {% for usuario in usuarios %}
         <li class='task-item'>
-            <span>{{setor.nome}}</span>
-            <a href="delsetor/{{setor.id}}" class="delete-btn">
+            <span>{{usuario.nome}}</span>
+            <a href="delstatus/{{status.id}}" class="delete-btn">
                 <span><i class="bi bi-trash-fill trash-btn"></i></span>
             </a>
-            <a href="editsetor/{{setor.id}}" >
+            <a href="editstatus/{{status.id}}" >
                 <span><i class="bi bi-pencil-square edit-btn" ></i></span>
             </a>
             
@@ -32,24 +32,24 @@
     </ul>
 
         <div class='col-2 add-div'>
-            <a id='add-task' href="addsetor/">
-                <i class="bi bi-plus"></i>Adicionar Setor
+            <a id='add-task' href="addstatus/">
+                <i class="bi bi-plus"></i>Adicionar 
             </a>
         </div>
         
     <div class="paginator">
         <span class="step-links">
             
-            {% if setores.has_previous %}
-                <a href="?page={{setores.previous_page_number}}"><i class="bi bi-arrow-left"></i></a>             
+            {% if usuarios.has_previous %}
+                <a href="?page={{usuarios.previous_page_number}}"><i class="bi bi-arrow-left"></i></a>             
             {% endif %}
     
             <span class="current">
-                {{setores.number}} de {{setores.paginator.num_pages}}
+                {{usuarios.number}} de {{usuarios.paginator.num_pages}}
             </span>
     
-            {% if setores.has_next %}
-                <a href="?page={{setores.next_page_number}}"><i class="bi bi-arrow-right"></i></a>             
+            {% if usuarios.has_next %}
+                <a href="?page={{usuarios.next_page_number}}"><i class="bi bi-arrow-right"></i></a>             
             {% endif %}            
                 
         </span>
