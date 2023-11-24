@@ -17,13 +17,13 @@
     {% endif %}
     
     <ul class='task-list'>
-        {% for usuario in usuarios %}
+        {% for dev in desenvolvedores %}
         <li class='task-item'>
-            <span>{{usuario.nome}}</span>
-            <a href="delstatus/{{status.id}}" class="delete-btn">
+            <span>{{dev.nome}}</span>
+            <a href="deldev/{{dev.id}}" class="delete-btn">
                 <span><i class="bi bi-trash-fill trash-btn"></i></span>
             </a>
-            <a href="editstatus/{{status.id}}" >
+            <a href="editdev/{{dev.id}}" >
                 <span><i class="bi bi-pencil-square edit-btn" ></i></span>
             </a>
             
@@ -40,16 +40,16 @@
     <div class="paginator">
         <span class="step-links">
             
-            {% if usuarios.has_previous %}
-                <a href="?page={{usuarios.previous_page_number}}"><i class="bi bi-arrow-left"></i></a>             
+            {% if desenvolvedores.has_previous %}
+                <a href="?page={{desenvolvedores.previous_page_number}}"><i class="bi bi-arrow-left"></i></a>             
             {% endif %}
     
             <span class="current">
-                {{usuarios.number}} de {{usuarios.paginator.num_pages}}
+                {{desenvolvedores.number}} de {{desenvolvedores.paginator.num_pages}}
             </span>
     
-            {% if usuarios.has_next %}
-                <a href="?page={{usuarios.next_page_number}}"><i class="bi bi-arrow-right"></i></a>             
+            {% if desenvolvedores.has_next %}
+                <a href="?page={{desenvolvedores.next_page_number}}"><i class="bi bi-arrow-right"></i></a>             
             {% endif %}            
                 
         </span>
