@@ -20,6 +20,7 @@ from . import views
 
 urlpatterns = [
     # Pessoas
-    path('desenvolvedor/', views.listagemUsuarios),
+    path('desenvolvedor/', views.listagemDesenvolvedor),
+    path('desenvolvedor/addesenvolvedor/', views.addDesenvolvedor),
     
 ]

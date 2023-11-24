@@ -5,6 +5,16 @@
 {% block content %}
 <div class='offset-1 col-10 list-div'>
     <h1>Lista de Tarefas</h1>
+
+    <div class="search">
+        <span>
+            <form method='get' id='search-form' class="d-flex" role="search">
+                <input  class="form-control me-2" type="search" name='search' placeholder="Pesquise um projeto" aria-label="Search" value="{{request.GET.search}}">
+                <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+            </form>
+        </span>
+    </div>
+    
     
     {% if messages %}
         <ul class="messages">
@@ -20,6 +30,8 @@
         {% for project in projetos %}
         <li class='task-item'>
             <span>{{project.nome}}</span>
+            
+            
             <a href="delprojeto/{{project.id}}" class="delete-btn">
                 <span><i class="bi bi-trash-fill trash-btn"></i></span>
             </a>

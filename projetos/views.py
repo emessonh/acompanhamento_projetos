@@ -7,13 +7,21 @@ from .models import Setor, Status, Projeto
 # Projetos
 
 def listagemProjetos(request):
-    projects_list = Projeto.objects.all().order_by('data_criacao')
+    search = request.GET.get('search')
+    if search:
+        lista_projetos = Projeto.objects.filter(nome__icontains=search).order_by('nome')
+        paginator = Paginator(lista_projetos, 5)
+        page = request.GET.get('page')
+        projetos = paginator.get_page(page)
+        return render(request, 'projetos/home.html', {'projetos': projetos, 'search': search})
+    else:
+        projects_list = Projeto.objects.all().order_by('data_criacao')
 
-    paginator = Paginator(projects_list, 5)
-    page = request.GET.get('page')
-    projects = paginator.get_page(page)
+        paginator = Paginator(projects_list, 5)
+        page = request.GET.get('page')
+        projects = paginator.get_page(page)
 
-    return render(request, 'projetos/home.html', {'projetos':projects})
+        return render(request, 'projetos/home.html', {'projetos':projects})
 
 def addProjeto(request):
     if request.method == 'POST':

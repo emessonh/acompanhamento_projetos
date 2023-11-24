@@ -71,6 +71,13 @@
     color: white;
 }
 
+/* Search */
+
+.search{
+    display: flex;
+    width: 80%;
+}
+
 /* Rodapé */
 
 footer{
