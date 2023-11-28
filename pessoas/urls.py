@@ -24,5 +24,8 @@ urlpatterns = [
     path('desenvolvedor/addesenvolvedor/', views.addDesenvolvedor),
     path('desenvolvedor/deldev/<int:id>', views.delDev),
     path('desenvolvedor/editdev/<int:id>', views.editDev),
+    # Pessoa_Projeto
+    path('desenvolvedor/add_dev_projeto/<int:id>', views.addDevToProjeto),
+    path('desenvolvedor/tirardev/<int:id>', views.tirarDev),
     
 ]

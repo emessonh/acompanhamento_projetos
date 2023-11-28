@@ -39,5 +39,5 @@ class Projeto(models.Model):
         ...
         # db_table = 'projeto'
     
-    def _str_(self):
+    def __str__(self):
         return self.nome

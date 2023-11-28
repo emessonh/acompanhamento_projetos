@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Tirar dev{% endblock  %}
+
+{% block content %}
+<div class='offset-1 col-10 list-div'>
+    <h1>Tirar dev do(os) projeto(os): </h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type='submit' id='criar-tarefa' class='btn btn-success' value='Excluir Participação'>
+    </form>
+</div>
+{% endblock %}

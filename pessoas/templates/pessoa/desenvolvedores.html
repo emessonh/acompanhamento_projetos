@@ -9,7 +9,7 @@
     {% if messages %}
         <ul class="messages">
             {% for message in messages %}
-                <li {% if  message.tags %} class="alert alert-{{message.tags}}" {% endif %}>
+                <li {% if message.tags %} class="alert alert-{{message.tags}}" {% endif %}>
                     {{message}}
                 </li>
             {% endfor %}
@@ -26,17 +26,23 @@
             <a href="editdev/{{dev.id}}" >
                 <span><i class="bi bi-pencil-square edit-btn" ></i></span>
             </a>
+            <a href="add_dev_projeto/{{dev.id}}" >
+                <span><i class="bi bi-people addproject-btn" style="color:black;"></i></span>
+            </a>
+            <a href="tirardev/{{dev.id}}" >
+                <span><i class="bi bi-person-x"style="color:black;"></i></span>
+            </a>
             
         </li>
         {% endfor %}
     </ul>
 
-        <div class='col-2 add-div'>
-            <a id='add-task' href="addesenvolvedor/">
-                <i class="bi bi-plus"></i>Desenvolvedor
-            </a>
-        </div>
-        
+    <div class='col-2 add-div'>
+        <a id='add-task' href="addesenvolvedor/">
+            <i class="bi bi-plus"></i>Desenvolvedor
+        </a>
+    </div>
+
     <div class="paginator">
         <span class="step-links">
             

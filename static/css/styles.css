@@ -140,6 +140,12 @@ ul.messages li{
     color: black;
 }
 
+/* Botão para adicionar ao prjeto */
+
+.addproject-btn{
+    color: black;
+}
+
 /* login */
 
 #card{
