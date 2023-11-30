@@ -9,7 +9,19 @@
     <h1>Tirar dev do(os) projeto(os): </h1>
     <form method="post">
         {% csrf_token %}
-        {{ form|crispy }}
+        {% for projeto in projetos %}
+            <div>
+                <input type="checkbox" name="projeto" value='{{projeto.id}}'>
+                <label for="projeto"> 
+                {% for nome_projeto in nome_projetos %} 
+                    <p>{{nome_projeto }} {{projeto}}</p>
+                    {% if nome_projeto.id == projeto.projeto_id %}
+                        {{nome_projeto.nome}}
+                    {% endif %}
+                {% endfor %}
+                </label>
+            </div>
+        {% endfor %}
         <input type='submit' id='criar-tarefa' class='btn btn-success' value='Excluir Participação'>
     </form>
 </div>

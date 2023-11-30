@@ -9,6 +9,4 @@ class PessoaForm(forms.Form):
 class PessoaProjetoForm(forms.Form):
     projetos = forms.ModelMultipleChoiceField(queryset=Projeto.objects.all(), to_field_name='nome', widget=forms.CheckboxSelectMultiple)
 
-# class PessoaToProjetoForm(forms.Form):
-#     projetos = forms.ModelMultipleChoiceField(queryset=Pessoa_Projeto.objects.filter(pessoa=id), to_field_name='nome', widget=forms.CheckboxSelectMultiple)
 

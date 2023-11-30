@@ -9,7 +9,18 @@
     <h1>Adicionando {{dev.nome}} a(os) projeto(os): </h1>
     <form method="post">
         {% csrf_token %}
-        {{ form|crispy }}
+        {% for pessoa_projeto in projetos %}
+            <div>
+                <input type="checkbox" name="projeto" value='{{pessoa_projeto.id}}'>
+                <label for="projeto"> 
+                    {% for projeto in nome_projetos %} 
+                        {% if projeto.id == pessoa_projeto.id %}
+                            {{projeto.nome}}
+                        {% endif %}
+                    {% endfor %}
+                </label>
+            </div>
+        {% endfor %}
         <input type='submit' id='criar-tarefa' class='btn btn-success' value='Editar Participação'>
     </form>
 </div>

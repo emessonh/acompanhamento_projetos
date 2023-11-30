@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from .models import Pessoa, Pessoa_Projeto
 from .forms import PessoaForm, PessoaProjetoForm
+from projetos.models import Projeto
 
 # Create your views here.
 
@@ -63,57 +64,57 @@ def editDev(request, id):
 def addDevToProjeto(request, id):
     dev = get_object_or_404(Pessoa, pk=id)
     if request.method == 'POST':
-        form = PessoaProjetoForm(request.POST)
-        if form.is_valid() and form.has_changed():
-            projetos = form.cleaned_data
-            for projeto in projetos['projetos']:
-                pessoa_projeto = Pessoa_Projeto(projeto=projeto, pessoa=dev)
-                print(projeto)
-                print(dev)
-                pessoa_projeto.save()
-            messages.success(request, 'Dev adicionado a(os) projeto(os)')
-            return redirect('/desenvolvedor/')
-        elif form.is_valid() == False and form.has_changed() == False:
-            return redirect(f'/desenvolvedor/add_dev_projeto/{id}')
+        projetos_sel = request.POST.getlist('projeto')
+        print(type(projetos_sel[0]))
+        if len(projetos_sel) == 0:
+            return redirect(f'/desenvolvedor/tirardev/{id}')
         else:
-            messages.warning(request, 'Erro ao adicionar dev ao projeto')
+            for projeto in projetos_sel:
+                projeto = get_object_or_404(Projeto, pk=projeto)
+                objeto_p_p = Pessoa_Projeto(pessoa=dev, projeto=projeto)
+                objeto_p_p.save()
+                messages.success(request, f'{dev.nome} adicionado ao projeto {projeto.nome}')        
             return redirect('/desenvolvedor/')
+        
     else:
-        # dev_to_projetos = Pessoa_Projeto.objects.filter(pessoa=f'{id}')
-        # all_projetos = Pessoa_Projeto.objects.all()
-        # show_projetos = []
-        # dados_projeto = {'nome': projeto.nome, 'sobre': projeto.sobre, 'status_id': projeto.status_id, 'situacao_atual': projeto.situacao_atual, 'prioridade': projeto.prioridade,
-        # 'prazo': projeto.prazo, 'link': projeto.link, 'proximos_passos': projeto.proximos_passos, 'impedimentos': projeto.impedimentos, 'sistema_critico': projeto.sistema_critico,
-        # 'setor_id': projeto.setor_id, 'pasta_responsavel': projeto.pasta_responsavel}
-        # form = ProjectForm(initial=dados_projeto)
+        projetos = Projeto.objects.all() 
+        pessoa_is_projeto = Pessoa_Projeto.objects.filter(pessoa_id=id)
+        id_projetos = []
+        for projeto in pessoa_is_projeto:
+            id_projetos.append(projeto.projeto_id)
 
-        form = PessoaProjetoForm()
-        return render(request, 'projeto/addevtoproject.html', {'form':form, 'dev':dev})
+        pessoa_is_not_projeto = []
+        for projeto in projetos:
+            if projeto.id not in id_projetos:
+                pessoa_is_not_projeto.append(projeto)
+        
+        projetos = []
+        for pessoa_projeto in pessoa_is_not_projeto:
+            projeto = get_object_or_404(Projeto, pk=pessoa_projeto.id)
+            projetos.append(projeto)
+        return render(request, 'projeto/addevtoproject.html', {'projetos': pessoa_is_not_projeto, 'nome_projetos': projetos})
     
 def tirarDev(request, id):
     if request.method == 'POST':
-        dev = get_object_or_404(Pessoa, pk=id)
-        form = PessoaProjetoForm(request.POST)
-
-        if form.is_valid() and form.has_changed():
-            projetos = form.cleaned_data
-            ids_projetos_pessoa = get_list_or_404(Pessoa_Projeto, pessoa=dev.id)
-            c = 0
-            for projeto in projetos['projetos']:
-                pessoa_projeto = Pessoa_Projeto(pk=ids_projetos_pessoa[c].id)
-                pessoa_projeto.delete()
-                messages.success(request, f'{dev.nome} excluído do projeto {projeto.nome}')
-                c += 1
-            return redirect('/desenvolvedor/')
-        
-        elif form.is_valid() == False and form.has_changed() == False:
+        projetos_sel = request.POST.getlist('projeto')
+        if len(projetos_sel) == 0:
             return redirect(f'/desenvolvedor/tirardev/{id}')
-        
         else:
-            messages.warning(request, 'Erro ao adicionar dev ao projeto')
+            for pessoa_projeto in projetos_sel:
+                pessoa_projeto = int(pessoa_projeto)
+                objeto_p_p = get_object_or_404(Pessoa_Projeto, pk=pessoa_projeto)
+                dev = get_object_or_404(Pessoa, pk=objeto_p_p.pessoa_id)
+                projeto = get_object_or_404(Projeto, pk=objeto_p_p.projeto_id)
+                objeto_p_p.delete()
+                messages.success(request, f'{dev.nome} excluído do projeto {projeto.nome}')        
             return redirect('/desenvolvedor/')
-        
-    else:
        
-        form = PessoaProjetoForm()
-        return render(request, 'projeto/tirardevtoproject.html', {'form':form})
+    else:
+        pessoa_projetos = Pessoa_Projeto.objects.filter(pessoa=id) # id, pessoa_id, projeto_id
+        projetos = []
+        for pessoa_projeto in pessoa_projetos:
+            projeto = get_object_or_404(Projeto, pk=pessoa_projeto.projeto_id)
+            projetos.append(projeto)
+        return render(request, 'projeto/tirardevtoproject.html', {'projetos': pessoa_projetos, 'nome_projetos': projetos})
+    
+    
