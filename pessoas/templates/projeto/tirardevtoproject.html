@@ -10,7 +10,18 @@
     <form method="post">
         {% csrf_token %}
         {% for projeto in projetos %}
-            <div>
+            <div class="form-check check-project">
+                <input class="form-check-input" type="checkbox" name='project' value="{{projeto.id}}" checked>
+                <label class="form-check-label" for="project">
+                    {% for nome_projeto in nome_projetos %} 
+                        {% if nome_projeto.id == projeto.projeto_id %}
+                            {{nome_projeto.nome}}
+                        {% endif %}
+                    {% endfor %}
+                </label>
+            </div>
+
+            {% comment %} <div>
                 <input type="checkbox" name="projeto" value='{{projeto.id}}'>
                 <label for="projeto"> 
                 {% for nome_projeto in nome_projetos %} 
@@ -19,7 +30,7 @@
                     {% endif %}
                 {% endfor %}
                 </label>
-            </div>
+            </div> {% endcomment %}
         {% endfor %}
         <input type='submit' id='criar-tarefa' class='btn btn-success' value='Excluir Participação'>
     </form>
