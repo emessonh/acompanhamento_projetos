@@ -1,10 +1,20 @@
 {% extends "base.html" %}
 
-{% block title %}Lista de setores{% endblock  %}
+{% block title %}Setores{% endblock  %}
 
 {% block content %}
 <div class='offset-1 col-10 list-div'>
     <h1>Lista de Setores</h1>
+
+    <div class="search">
+        <span>
+            <form method='get' id='search-form' class="d-flex" role="search">
+                <input  class="form-control me-2" type="search" name='search' placeholder="Pesquise por setor" aria-label="Search" value="{{request.GET.search}}">
+                <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+            </form>
+        </span>
+    </div>
+
 
     {% if messages %}
         <ul class="messages">
@@ -17,6 +27,9 @@
     {% endif %}
     
     <ul class='task-list'>
+        {%if search%}
+            <p>Pesquisando por: {{search}}</p>
+        {% endif %}
         {% for setor in setores %}
         <li class='task-item'>
             <span>{{setor.nome}}</span>
@@ -31,12 +44,19 @@
         {% endfor %}
     </ul>
 
-        <div class='col-2 add-div'>
-            <a id='add-task' href="addsetor/">
+    <a class='link-confirm' href="addsetor/">
+        <div class='col-2 btn-confirm'>
+            <p>
                 <i class="bi bi-plus"></i>Adicionar Setor
-            </a>
+            </p>
         </div>
-        
+    </a>
+    <!-- <a id='add-task' href="addsetor/" style="color: white;">
+        <div class='col-2 add-div'>
+                <i class="bi bi-plus"></i>Adicionar Setor
+        </div>
+    </a> -->
+            
     <div class="paginator">
         <span class="step-links">
             

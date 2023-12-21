@@ -122,13 +122,21 @@ def delProjeto(request, id):
 # Setores
     
 def listarSetores(request):
-    lista_setores = Setor.objects.all().order_by('nome')
+    search = request.GET.get('search')
+    if search:
+        lista_setores = Setor.objects.filter(nome__icontains=search)
+        paginator = Paginator(lista_setores, 5)
+        page = request.GET.get('page')
+        setores = paginator.get_page(page)
+        return render(request, 'setor/setores.html', {'setores':setores, 'search':search})
+    else:
+        lista_setores = Setor.objects.all().order_by('nome')
 
-    paginator = Paginator(lista_setores, 5)
-    page = request.GET.get('page')
-    setores = paginator.get_page(page)
-
-    return render(request, 'setor/setores.html', {'setores':setores})
+        paginator = Paginator(lista_setores, 5)
+        page = request.GET.get('page')
+        setores = paginator.get_page(page)
+    
+        return render(request, 'setor/setores.html', {'setores':setores})
 
 def addSetor(request):
     if request.method == 'POST':

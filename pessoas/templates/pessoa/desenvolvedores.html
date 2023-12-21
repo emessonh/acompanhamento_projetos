@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Lista de desenvolvedores{% endblock  %}
+{% block title %}Desenvolvedores{% endblock  %}
 
 {% block content %}
 <div class='offset-1 col-10 list-div'>
@@ -37,11 +37,19 @@
         {% endfor %}
     </ul>
 
-    <div class='col-2 add-div'>
-        <a id='add-task' href="addesenvolvedor/">
+    
+    <a class='link-confirm' href="addesenvolvedor/">
+        <div class='col-2 btn-confirm'>
+            <p>
+                <i class="bi bi-plus"></i>Desenvolvedor
+            </p>
+        </div>
+    </a>
+    <!-- <a id='add-task' href="addesenvolvedor/" style="color: white;">
+        <div class='col-2 add-div'>
             <i class="bi bi-plus"></i>Desenvolvedor
-        </a>
-    </div>
+        </div>
+    </a> -->
 
     <div class="paginator">
         <span class="step-links">
