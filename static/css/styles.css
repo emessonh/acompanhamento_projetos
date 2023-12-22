@@ -1,6 +1,8 @@
 .container-fluid{
     padding: 0;
     background-color: rgb(255, 252, 252);
+    /* position: fixed;
+    height: 5%; */
 }
 
 /* Navbar */

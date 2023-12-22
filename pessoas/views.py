@@ -73,7 +73,7 @@ def addDevToProjeto(request, id):
                 projeto = get_object_or_404(Projeto, pk=projeto)
                 objeto_p_p = Pessoa_Projeto(pessoa=dev, projeto=projeto)
                 objeto_p_p.save()
-                messages.success(request, f'{dev.nome} adicionado ao projeto {projeto.nome}')        
+                messages.success(request, f'{dev.nome} adicionado ao projeto: {projeto.nome}')        
             return redirect('/desenvolvedor/')
         
     else:
@@ -97,6 +97,7 @@ def addDevToProjeto(request, id):
 def tirarDev(request, id):
     if request.method == 'POST':
         projetos_sel = request.POST.getlist('projeto')
+        print(projetos_sel)
         if len(projetos_sel) == 0:
             return redirect(f'/desenvolvedor/tirardev/{id}')
         else:
@@ -106,7 +107,7 @@ def tirarDev(request, id):
                 dev = get_object_or_404(Pessoa, pk=objeto_p_p.pessoa_id)
                 projeto = get_object_or_404(Projeto, pk=objeto_p_p.projeto_id)
                 objeto_p_p.delete()
-                messages.success(request, f'{dev.nome} excluído do projeto {projeto.nome}')        
+                messages.success(request, f'{dev.nome} excluído do projeto: {projeto.nome}')        
             return redirect('/desenvolvedor/')
        
     else:
