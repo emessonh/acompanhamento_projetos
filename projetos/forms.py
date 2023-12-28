@@ -21,7 +21,11 @@ class SetorForm(forms.ModelForm):
         model = Setor
         fields = ('nome',)
 
-class StatusForm(forms.ModelForm):
-    class Meta:
-        model = Status
-        fields = ('descricao', 'cor')
+# class StatusForm(forms.Form):
+#     descricao = forms.CharField(label='descricao', max_length=100)
+#     cor = forms.CharField(label='cor', max_length=10)
+
+# class StatusForm(forms.ModelForm):
+#     class Meta:
+#         model = Status
+#         fields = ('descricao', 'cor')

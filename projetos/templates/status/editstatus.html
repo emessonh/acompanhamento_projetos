@@ -9,8 +9,18 @@
     <h1>Editando o status: </h1>
     <form method="post">
         {% csrf_token %}
-        {{ form|crispy }}
-        <input type='submit' id='criar-tarefa' class='btn btn-success' value='Editar Status'>
+        {% comment %} {{ form|crispy }} {% endcomment %}
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input type="text" class="form-control" name='descricao' id="descricao" value='{{descricao}}' required>
+        </div>
+        <div class="mb-3">
+            <label for="cor" class="form-label">Cor</label>
+            <input type="color" class="form-control" name='cor' id="cor" value='{{cor}}' required>
+        </div>
+        <button type="submit" class="btn btn-success">Adicionar status</button>
+        {% comment %} <input type='submit' id='criar-tarefa' class='btn btn-success' value='Adicionar Status'> {% endcomment %}
+        
     </form>
 </div>
 {% endblock %}

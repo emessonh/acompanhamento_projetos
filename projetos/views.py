@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib import messages
-from .forms import ProjectForm, SetorForm, StatusForm
+from .forms import ProjectForm, SetorForm
+# from .forms import StatusForm
 from .models import Setor, Status, Projeto 
 
 # Projetos
@@ -185,16 +186,19 @@ def listaStatus(request):
 
 def addStatus(request):
     if request.method == 'POST':
-        form = StatusForm(request.POST)
+        descricao_status = request.POST.get('descricao')
+        cor_status = request.POST.get('cor')
+        # print(descricao_status, cor_status)
 
-        if form.is_valid():
-            status = form.save()
-            messages.success(request, 'Status adicionado com sucesso')
-            return redirect('/status/')
-        
+        # if form.is_valid():
+        status = Status(descricao=descricao_status, cor=cor_status)
+        status = status.save()
+        messages.success(request, 'Status adicionado com sucesso')
+        return redirect('/status/')
+            
     else:
-        form = StatusForm()
-        return render(request, 'status/addstatus.html', {'form': form})
+        # form = StatusForm()
+        return render(request, 'status/addstatus.html')
     
 def delStatus(request, id):
     status = get_object_or_404(Status, pk=id)
@@ -204,15 +208,23 @@ def delStatus(request, id):
 
 def editStatus(request, id):
     status = get_object_or_404(Status, pk=id)
-    form = StatusForm(instance=status)
+    
+    # form = StatusForm(instance=status)
     if request.method == 'POST':
-        form = StatusForm(request.POST, instance=status)
-        if form.is_valid():
-            status.save()
-            messages.success(request, 'Status editado com sucesso')
-            return redirect('/status/')
-        else:
-            messages.error(request, 'Erro ao editar o status! Tente novamente!')
-            return redirect('/status/')
+        
+        # form = StatusForm(request.POST, instance=status)
+        # if form.is_valid():
+        nova_descricao = request.POST.get('descricao')
+        nova_cor = request.POST.get('cor')
+        status.descricao = nova_descricao
+        status.cor = nova_cor
+        status.save()
+        messages.success(request, 'Status editado com sucesso')
+        return redirect('/status/')
+        # else:
+        #     messages.error(request, 'Erro ao editar o status! Tente novamente!')
+        #     return redirect('/status/')
     else:
-        return render(request, 'status/editstatus.html', {'form': form})
+        descricao_status = status.descricao
+        cor_status = status.cor
+        return render(request, 'status/editstatus.html', {'descricao': descricao_status, 'cor': cor_status})

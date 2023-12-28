@@ -12,7 +12,7 @@ from projetos.models import Projeto
 def listagemDesenvolvedor(request):
     lista_desenvolvedores = Pessoa.objects.all().order_by('nome')
 
-    paginator = Paginator(lista_desenvolvedores, 5)
+    paginator = Paginator(lista_desenvolvedores, 10)
     page = request.GET.get('page')
     desenvolvedores = paginator.get_page(page)
 
