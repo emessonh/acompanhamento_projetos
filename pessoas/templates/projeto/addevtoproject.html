@@ -9,7 +9,8 @@
     <h1>Adicionando {{dev.nome}} a(os) projeto(os): </h1>
     <form method="post">
         {% csrf_token %}
-        {% for pessoa_projeto in projetos %}
+        {% if  qtd_projetos != 0%}
+            {% for pessoa_projeto in projetos %}
             <div class="form-check check-project">
                 <input class="form-check-input" type="checkbox" name='projeto' value="{{pessoa_projeto.id}}">
                 <label class="form-check-label" for="projeto">
@@ -31,8 +32,12 @@
                     {% endfor %}
                 </label>
             </div> {% endcomment %}
-        {% endfor %}
-        <input type='submit' id='criar-tarefa' class='btn btn-success' value='Editar Participação'>
+            {% endfor %}
+            <input type='submit' id='criar-tarefa' class='btn btn-success' value='Editar Participação'>
+        {% else %}
+            <p>Não há projetos para adicionar o desenvolvedor</p>
+        {% endif %}
+        
     </form>
 </div>
 {% endblock %}

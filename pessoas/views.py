@@ -65,7 +65,7 @@ def addDevToProjeto(request, id):
     dev = get_object_or_404(Pessoa, pk=id)
     if request.method == 'POST':
         projetos_sel = request.POST.getlist('projeto')
-        print(type(projetos_sel[0]))
+        # print(type(projetos_sel[0]))
         if len(projetos_sel) == 0:
             return redirect(f'/desenvolvedor/tirardev/{id}')
         else:
@@ -92,7 +92,7 @@ def addDevToProjeto(request, id):
         for pessoa_projeto in pessoa_is_not_projeto:
             projeto = get_object_or_404(Projeto, pk=pessoa_projeto.id)
             projetos.append(projeto)
-        return render(request, 'projeto/addevtoproject.html', {'projetos': pessoa_is_not_projeto, 'nome_projetos': projetos})
+        return render(request, 'projeto/addevtoproject.html', {'projetos': pessoa_is_not_projeto, 'qtd_projetos':len(projetos), 'nome_projetos': projetos})
     
 def tirarDev(request, id):
     if request.method == 'POST':
@@ -116,6 +116,6 @@ def tirarDev(request, id):
         for pessoa_projeto in pessoa_projetos:
             projeto = get_object_or_404(Projeto, pk=pessoa_projeto.projeto_id)
             projetos.append(projeto)
-        return render(request, 'projeto/tirardevtoproject.html', {'projetos': pessoa_projetos, 'nome_projetos': projetos})
+        return render(request, 'projeto/tirardevtoproject.html', {'projetos': pessoa_projetos, 'qtd_projetos':len(projetos), 'nome_projetos': projetos})
     
     

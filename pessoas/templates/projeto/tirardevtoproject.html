@@ -9,7 +9,8 @@
     <h1>Tirar dev do(os) projeto(os): </h1>
     <form method="post">
         {% csrf_token %}
-        {% for projeto in projetos %}
+        {% if qtd_projetos != 0 %}
+            {% for projeto in projetos %}
             <div class="form-check check-project">
                 <input class="form-check-input" type="checkbox" name='projeto' value="{{projeto.id}}">
                 <label class="form-check-label" for="projeto">
@@ -31,8 +32,12 @@
                 {% endfor %}
                 </label>
             </div> {% endcomment %}
-        {% endfor %}
-        <input type='submit' id='criar-tarefa' class='btn btn-success' value='Excluir Participação'>
+            {% endfor %}
+            <input type='submit' id='criar-tarefa' class='btn btn-success' value='Excluir Participação'>
+        {% else %}
+            <p>O desenvolvedor não tem projetos vinculados</p>
+        {% endif %}
+        
     </form>
 </div>
 {% endblock %}
