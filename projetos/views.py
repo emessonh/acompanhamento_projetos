@@ -54,10 +54,10 @@ def addProjeto(request):
 
             # Salva  
             projeto.save()
-            messages.success(request, 'Tarefa adicionada com sucesso')
+            messages.success(request, 'Projeto adicionado com sucesso')
             return redirect('/')
         else:
-            messages.error(request, 'Error ao adicionar tarefa')
+            messages.error(request, 'Error ao adicionar projeto')
             return redirect('/')
         
     else:
@@ -145,7 +145,7 @@ def addSetor(request):
 
         if form.is_valid():
             task = form.save()
-            messages.success(request, 'Tarefa adicionada com sucesso')
+            messages.success(request, 'Setor adicionado com sucesso')
             return redirect('/setores/')
         
     else:
