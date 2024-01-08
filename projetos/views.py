@@ -11,14 +11,14 @@ def listagemProjetos(request):
     search = request.GET.get('search')
     if search:
         lista_projetos = Projeto.objects.filter(nome__icontains=search).order_by('nome')
-        paginator = Paginator(lista_projetos, 5)
+        paginator = Paginator(lista_projetos, 10)
         page = request.GET.get('page')
         projetos = paginator.get_page(page)
         return render(request, 'projetos/home.html', {'projetos': projetos, 'search': search})
     else:
         projects_list = Projeto.objects.all().order_by('data_criacao')
 
-        paginator = Paginator(projects_list, 5)
+        paginator = Paginator(projects_list, 10)
         page = request.GET.get('page')
         projects = paginator.get_page(page)
 
@@ -30,7 +30,7 @@ def addProjeto(request):
         form = ProjectForm(request.POST)
 
         # Verifica se é válido
-        if form.is_valid():
+        if form.is_valid():          
             
             # Tratando os dados 
             dados_form = form.cleaned_data
@@ -46,6 +46,14 @@ def addProjeto(request):
             sistema_critico = dados_form['sistema_critico']
             setor_id = dados_form['setor_id']
             pasta_responsavel = dados_form['pasta_responsavel']
+
+            # Verifica se há um projeto com o mesmo nome e setor
+            projetos_existentes = Projeto.objects.all()
+            for p in projetos_existentes:
+                # print(p.nome.upper(), nome.upper(), p.setor_id_id, setor_id.id)
+                if (p.nome.upper() == nome.upper()) and (p.setor_id_id == setor_id.id):
+                    messages.warning(request, 'Atenção! Projeto já cadastrado com mesmo nome e setor')
+                    return redirect('/')
 
             # Instancia o projeto
             projeto = Projeto(nome=nome, sobre=sobre, status_id=status_id, situacao_atual=situacao_atual, 
@@ -126,14 +134,14 @@ def listarSetores(request):
     search = request.GET.get('search')
     if search:
         lista_setores = Setor.objects.filter(nome__icontains=search)
-        paginator = Paginator(lista_setores, 5)
+        paginator = Paginator(lista_setores, 10)
         page = request.GET.get('page')
         setores = paginator.get_page(page)
         return render(request, 'setor/setores.html', {'setores':setores, 'search':search})
     else:
         lista_setores = Setor.objects.all().order_by('nome')
 
-        paginator = Paginator(lista_setores, 5)
+        paginator = Paginator(lista_setores, 10)
         page = request.GET.get('page')
         setores = paginator.get_page(page)
     
@@ -142,8 +150,17 @@ def listarSetores(request):
 def addSetor(request):
     if request.method == 'POST':
         form = SetorForm(request.POST)
-
         if form.is_valid():
+
+            # Verifica se o setor já existe
+            setores = Setor.objects.all()
+            print(setores)
+            dados = form.cleaned_data
+            for setor in setores:
+                if setor.nome.upper() == dados['nome'].upper():
+                    messages.warning(request, 'Setor já cadastro')
+                    return redirect('/setores/')
+                
             task = form.save()
             messages.success(request, 'Setor adicionado com sucesso')
             return redirect('/setores/')
@@ -190,7 +207,13 @@ def addStatus(request):
         cor_status = request.POST.get('cor')
         # print(descricao_status, cor_status)
 
-        # if form.is_valid():
+        # Verifica se o status já existe
+        status = Status.objects.all()
+        for s in status:
+            if s.descricao.upper() == descricao_status.upper():
+                messages.warning(request, "Status já cadastrado")
+                return redirect('/status/')
+
         status = Status(descricao=descricao_status, cor=cor_status)
         status = status.save()
         messages.success(request, 'Status adicionado com sucesso')
