@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.core.paginator import Paginator
 from django.contrib import messages
 from .forms import ProjectForm, SetorForm
@@ -74,6 +74,7 @@ def addProjeto(request):
 
 def editProjeto(request, id):
     projeto = get_object_or_404(Projeto, pk=id)
+    projetos = get_list_or_404(Projeto)
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
@@ -105,6 +106,14 @@ def editProjeto(request, id):
             projeto.sistema_critico = sistema_critico
             projeto.setor_id = setor_id
             projeto.pasta_responsavel = pasta_responsavel
+            
+            # Verifica se a edição é possível
+            for p in projetos:
+                print(p.nome, projeto.nome)
+                print(p.setor_id_id, projeto.setor_id.id)
+                if p.nome == projeto.nome and p.setor_id_id == projeto.setor_id.id:
+                    messages.warning(request, 'Atenção! Projeto já existe')
+                    return redirect('/')
 
             # Salva  
             projeto.save()
