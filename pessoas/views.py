@@ -29,7 +29,7 @@ def addDesenvolvedor(request):
             messages.success(request, 'Desenvolvedor adicionado com sucesso')
             return redirect('/desenvolvedor/')
         else:
-            messages.error(request, 'Erro ao adicionar desenvolvedor')
+            messages.warning(request, 'Erro ao adicionar desenvolvedor')
             return redirect('/desenvolvedor/')
 
     else:
@@ -53,7 +53,7 @@ def editDev(request, id):
             messages.success(request, 'Edição realizada com sucesso')
             return redirect('/desenvolvedor/')
         else: 
-            messages.error(request, 'Erro ao editar desenvolvedor')
+            messages.warning(request, 'Erro ao editar desenvolvedor')
             return redirect('/desenvolvedor/')
     else:
         form = PessoaForm(initial={'nome':dev.nome, 'area': dev.area})

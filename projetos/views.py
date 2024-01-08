@@ -65,7 +65,7 @@ def addProjeto(request):
             messages.success(request, 'Projeto adicionado com sucesso')
             return redirect('/')
         else:
-            messages.error(request, 'Error ao adicionar projeto')
+            messages.warning(request, 'Erro ao adicionar projeto')
             return redirect('/')
         
     else:
@@ -120,7 +120,7 @@ def editProjeto(request, id):
             messages.success(request, 'Projeto editado com sucesso')
             return redirect('/')
         else:
-            messages.error(request, 'Error ao editar projeto')
+            messages.warning(request, 'Erro ao editar projeto')
             return redirect('/')
 
     else:
@@ -263,12 +263,15 @@ def editStatus(request, id):
         # if form.is_valid():
         nova_descricao = request.POST.get('descricao')
         nova_cor = request.POST.get('cor')
+        
+        # verifica se o status já existe 
         for s in status_banco:
             # print(s.descricao, nova_descricao)
             if s.descricao.upper() == nova_descricao.upper():
                 messages.warning(request, 'Atenção! Status já cadastrado')
                 return redirect('/status/')
 
+        # Salva
         status.descricao = nova_descricao
         status.cor = nova_cor
         status.save()
