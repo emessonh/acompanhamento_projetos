@@ -188,19 +188,20 @@ def editSetor(request, id):
     setor = get_object_or_404(Setor, pk=id)
     form = SetorForm(instance=setor)
     if request.method == 'POST':
-        # setores = get_list_or_404(Setor)
+        setores = get_list_or_404(Setor)
         form_enviado = SetorForm(request.POST, instance=setor)
-        # print(form_enviado)
-        # dados = form_enviado.changed_data
+        print(form_enviado)
+        sigla_setor = form_enviado.cleaned_data['nome']
+        # print(dados)
         # sigla_setor = dados['nome']
         # print(sigla_setor)
         if form_enviado.is_valid():
             # Verifica se o setor já existe
-            # for s in setores:
-            #     if sigla_setor.upper() == s.nome.upper():
-            #         print(sigla_setor, s.nome)
-            #         messages.warning(request, 'Atenção! Setor já cadastrado')
-            #         return redirect('/setores/')
+            for s in setores:
+                if sigla_setor.upper() == s.nome.upper():
+                    print(sigla_setor, s.nome)
+                    messages.warning(request, 'Atenção! Setor já cadastrado')
+                    return redirect('/setores/')
                 
             # Salva
             setor.save()
