@@ -111,7 +111,7 @@ def editProjeto(request, id):
             for p in projetos:
                 print(p.nome, projeto.nome)
                 print(p.setor_id_id, projeto.setor_id.id)
-                if p.nome == projeto.nome and p.setor_id_id == projeto.setor_id.id:
+                if p.nome.upper() == projeto.nome.upper() and p.setor_id_id == projeto.setor_id.id:
                     messages.warning(request, 'Atenção! Projeto já existe')
                     return redirect('/')
 
@@ -167,7 +167,7 @@ def addSetor(request):
             dados = form.cleaned_data
             for setor in setores:
                 if setor.nome.upper() == dados['nome'].upper():
-                    messages.warning(request, 'Setor já cadastro')
+                    messages.warning(request, 'Atenção! Setor já cadastrado')
                     return redirect('/setores/')
                 
             task = form.save()
@@ -188,13 +188,26 @@ def editSetor(request, id):
     setor = get_object_or_404(Setor, pk=id)
     form = SetorForm(instance=setor)
     if request.method == 'POST':
-        form = SetorForm(request.POST, instance=setor)
-        if form.is_valid():
+        # setores = get_list_or_404(Setor)
+        form_enviado = SetorForm(request.POST, instance=setor)
+        # print(form_enviado)
+        # dados = form_enviado.changed_data
+        # sigla_setor = dados['nome']
+        # print(sigla_setor)
+        if form_enviado.is_valid():
+            # Verifica se o setor já existe
+            # for s in setores:
+            #     if sigla_setor.upper() == s.nome.upper():
+            #         print(sigla_setor, s.nome)
+            #         messages.warning(request, 'Atenção! Setor já cadastrado')
+            #         return redirect('/setores/')
+                
+            # Salva
             setor.save()
             messages.success(request, 'Setor editado com sucesso')
             return redirect('/setores/')
         else:
-            messages.error(request, 'Erro ao editar o setor! Tente novamente!')
+            messages.warning(request, 'Erro ao editar o setor! Tente novamente!')
             return redirect('/setores/')
     else:
         return render(request, 'setor/editsetor.html', {'form': form})
@@ -220,7 +233,7 @@ def addStatus(request):
         status = Status.objects.all()
         for s in status:
             if s.descricao.upper() == descricao_status.upper():
-                messages.warning(request, "Status já cadastrado")
+                messages.warning(request, "Atenção! Status já cadastrado")
                 return redirect('/status/')
 
         status = Status(descricao=descricao_status, cor=cor_status)
@@ -243,11 +256,18 @@ def editStatus(request, id):
     
     # form = StatusForm(instance=status)
     if request.method == 'POST':
+        status_banco = get_list_or_404(Status)
         
         # form = StatusForm(request.POST, instance=status)
         # if form.is_valid():
         nova_descricao = request.POST.get('descricao')
         nova_cor = request.POST.get('cor')
+        for s in status_banco:
+            # print(s.descricao, nova_descricao)
+            if s.descricao.upper() == nova_descricao.upper():
+                messages.warning(request, 'Atenção! Status já cadastrado')
+                return redirect('/status/')
+
         status.descricao = nova_descricao
         status.cor = nova_cor
         status.save()
