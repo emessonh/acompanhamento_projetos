@@ -9,6 +9,10 @@
     <h1>Editando Desenvolvedor: </h1>
     <form method="post">
         {% csrf_token %}
+        <div class="mb-3">
+            <label for="cpf" class="form-label">CPF*</label>
+            <input type="text" class="form-control" name='cpf' id="cpf" value="{{cpf}}" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}">
+        </div>
         {{ form|crispy }}
         <input type='submit' id='criar-tarefa' class='btn btn-success' value='Editar Desenvolvedor'>
     </form>

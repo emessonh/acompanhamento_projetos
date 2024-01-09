@@ -11,7 +11,7 @@
         {% csrf_token %}
         <div class="mb-3">
             <label for="cpf" class="form-label">CPF*</label>
-            <input type="text" class="form-control" name='cpf' id="cpf" maxlength="11" placeholder="000.000.000-00" pattern="[0-9]{11}">
+            <input type="text" class="form-control" name='cpf' id="cpf" placeholder="000.000.000-00" pattern=\d{3}\.?\d{3}\.?\d{3}-?\d{2}>
         </div>
         {{ form|crispy }}
         <input type='submit' id='criar-tarefa' class='btn btn-success' value='Adicionar Desenvolvedor'>

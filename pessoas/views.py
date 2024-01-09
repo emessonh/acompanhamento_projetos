@@ -56,18 +56,33 @@ def editDev(request, id):
     dev = get_object_or_404(Pessoa, pk=id) 
     if request.method == 'POST':
         form = PessoaForm(request.POST)
-        if form.is_valid():
+        cpf = request.POST.get('cpf').replace('.', '', 3)
+        cpf = cpf.replace('-', '')
+
+        # Verifica se o cpf é o mesmo do banco
+        if cpf != dev.cpf:
+            dev_existe = Pessoa.objects.filter(cpf=cpf)
+        else:
+            # dev_existe = []
+            dev_existe = None
+
+        if form.is_valid() and not dev_existe:
+            dev.cpf = cpf
             dev.nome = form.cleaned_data['nome']
             dev.area = form.cleaned_data['area']
             dev.save()
             messages.success(request, 'Edição realizada com sucesso')
+            return redirect('/desenvolvedor/')
+        elif dev_existe:
+            messages.warning(request, 'Atenção! Desenvolvedor já cadastrado')
             return redirect('/desenvolvedor/')
         else: 
             messages.warning(request, 'Erro ao editar desenvolvedor')
             return redirect('/desenvolvedor/')
     else:
         form = PessoaForm(initial={'nome':dev.nome, 'area': dev.area})
-        return render(request, 'pessoa/editdev.html', {'form': form})
+        cpf = dev.cpf
+        return render(request, 'pessoa/editdev.html', {'form': form, 'cpf': cpf})
 
 # pessoa_projeto
 
