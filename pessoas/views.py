@@ -82,7 +82,7 @@ def editDev(request, id):
     else:
         form = PessoaForm(initial={'nome':dev.nome, 'area': dev.area})
         cpf = dev.cpf
-        return render(request, 'pessoa/editdev.html', {'form': form, 'cpf': cpf})
+        return render(request, 'pessoa/editdev.html', {'form': form, 'dev':dev.nome, 'cpf': cpf})
 
 # pessoa_projeto
 

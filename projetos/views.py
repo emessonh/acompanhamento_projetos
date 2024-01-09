@@ -128,7 +128,7 @@ def editProjeto(request, id):
         'prazo': projeto.prazo, 'link': projeto.link, 'proximos_passos': projeto.proximos_passos, 'impedimentos': projeto.impedimentos, 'sistema_critico': projeto.sistema_critico,
         'setor_id': projeto.setor_id, 'pasta_responsavel': projeto.pasta_responsavel}
         form = ProjectForm(initial=dados_projeto)
-        return render(request, 'projetos/editprojeto.html', {'form':form})
+        return render(request, 'projetos/editprojeto.html', {'form':form, 'projeto':projeto.nome})
 
 def delProjeto(request, id):
     projeto = get_object_or_404(Projeto, pk=id)
@@ -211,7 +211,7 @@ def editSetor(request, id):
             messages.warning(request, 'Erro ao editar o setor! Tente novamente!')
             return redirect('/setores/')
     else:
-        return render(request, 'setor/editsetor.html', {'form': form})
+        return render(request, 'setor/editsetor.html', {'form': form, 'setor':setor.nome})
     
 # Status
 
@@ -283,4 +283,4 @@ def editStatus(request, id):
     else:
         descricao_status = status.descricao
         cor_status = status.cor
-        return render(request, 'status/editstatus.html', {'descricao': descricao_status, 'cor': cor_status})
+        return render(request, 'status/editstatus.html', {'descricao': descricao_status, 'cor': cor_status, 'status': status.descricao})
