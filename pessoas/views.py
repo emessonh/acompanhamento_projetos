@@ -21,12 +21,22 @@ def listagemDesenvolvedor(request):
 def addDesenvolvedor(request):
     if request.method == 'POST':
         form = PessoaForm(request.POST)
-        if form.is_valid():
+        caracteres_cpf = ['.', '-']
+        cpf = request.POST.get('cpf').replace('.', '', 3)
+        cpf = cpf.replace('-', '')
+        # print(cpf)
+        dev_existe = Pessoa.objects.filter(cpf=cpf)
+        # print(form)
+        if form.is_valid() and not dev_existe:
+            # cpf = form.cleaned_data['cpf']
             nome = form.cleaned_data['nome']
             area = form.cleaned_data['area']
-            pessoa = Pessoa(nome=nome, area=area)
+            pessoa = Pessoa(cpf=cpf, nome=nome, area=area)
             pessoa.save()
             messages.success(request, 'Desenvolvedor adicionado com sucesso')
+            return redirect('/desenvolvedor/')
+        elif dev_existe:
+            messages.warning(request, 'Atenção! Desenvolvedor já cadastrado')
             return redirect('/desenvolvedor/')
         else:
             messages.warning(request, 'Erro ao adicionar desenvolvedor')

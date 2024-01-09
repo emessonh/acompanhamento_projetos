@@ -8,6 +8,7 @@ class Pessoa(models.Model):
     nome = models.CharField(max_length=100)
     area = models.TextField(blank=True, null=True)
     data_criacao = models.DateTimeField(auto_now=True)
+    cpf = models.CharField(blank=False, null=False, unique=True, default=0, max_length=11)
     # a class Meta é onde passamos os metadados da tabela
     #ex: nome da tabela
     class Meta:

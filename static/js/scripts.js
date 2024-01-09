@@ -9,3 +9,8 @@ $(document).ready(function(){
         }
     });
 });
+
+$(document).ready(function() {
+    // console.log('entrou aqui');
+    $('#cpf').mask('000.000.000-00');
+});
