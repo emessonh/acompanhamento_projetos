@@ -19,24 +19,22 @@
                     <form>
                         <div class="mb-3">
                           <label for="cpf" class="form-label">CPF</label>
-                          <input type="text" class='form-control' name="cpf" id="cpf" maxlength="14" required>
+                          <input type="text" class='form-control' name="cpf" id="cpf" maxlength="14" placeholder="000.000.000-00" required>
                         </div>
                         <div class="mb-3 senha">
                           <label for="password" class="form-label">Senha</label>
                           <input type="password" class="form-control" id="password" required>
-                          <input type="checkbox" name="mostrar-senha" id="mostrar-senha">
-                          <label for="mostrar-senha">Mostrar senha</label>
-                          <a href="#" id="esqueceu-senha">Esqueceu a senha?</a>
-                          <!-- <p id="esqueceu-senha">Esqueceu a senha?</p> -->
+                          <div id="info-senha">
+                            <input class="form-check-input" type="checkbox" name="mostrar-senha" id="mostrar-senha">
+                            <label for="mostrar-senha">Mostrar senha</label>
+                            <a href="#" id="esqueceu-senha">Esqueceu a senha?</a>
+                          </div>
                         </div>
-                        <!-- <div class="mb-3 form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div> -->
                         <button type="submit" class="btn btn-primary btn-login">Entrar</button>
                     </form>
                 </div>
-              </div> 
+            </div> 
+            <p id="primeiro-acesso"><a href="#">Primeiro acesso? Clique aqui</a></p>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
