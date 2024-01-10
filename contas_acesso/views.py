@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def login(request):
     return render(request, 'login.html')
+
+def registrar(request):
+    return render(request, 'alterar_senha.html')

@@ -29,8 +29,6 @@ class Projeto(models.Model):
     sistema_critico = models.BooleanField(default=False) # revisar
     setor_id = models.ForeignKey(Setor, on_delete=models.CASCADE) # revisar
     pasta_responsavel = models.CharField(max_length=8)
-    
-    
     data_criacao = models.DateTimeField(auto_now=True)
     
     # a class Meta é onde passamos os metadados da tabela

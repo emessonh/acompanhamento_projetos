@@ -16,16 +16,20 @@ body{
     /* Alinha verticalmente */
     align-items: center;
     flex-direction: column;
-    /* background-color: ; */
 }
 
 .card{
     border-radius: 10px;
+    /* box-shadow:  0px 1px black; */
     /* background-color: #F6F4EB; */
 }
 
 .card-body{
     padding: 30px;
+}
+
+h2{
+    text-align: center;
 }
 
 #info-senha{
