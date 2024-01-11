@@ -7,3 +7,6 @@ def login(request):
 
 def registrar(request):
     return render(request, 'alterar_senha.html')
+
+def criar_login(request):
+    return render(request, 'criar-login.html')

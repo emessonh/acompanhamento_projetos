@@ -4,6 +4,7 @@ from django.contrib import messages
 from .models import Pessoa, Pessoa_Projeto
 from .forms import PessoaForm, PessoaProjetoForm
 from projetos.models import Projeto
+from contas_acesso.models import Contas
 
 # Create your views here.
 
@@ -32,7 +33,9 @@ def addDesenvolvedor(request):
             nome = form.cleaned_data['nome']
             area = form.cleaned_data['area']
             pessoa = Pessoa(cpf=cpf, nome=nome, area=area)
+            conta_acesso = Contas(cpf=pessoa)
             pessoa.save()
+            conta_acesso.save()
             messages.success(request, 'Desenvolvedor adicionado com sucesso')
             return redirect('/desenvolvedor/')
         elif dev_existe:
