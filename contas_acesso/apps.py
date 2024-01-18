@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+# from contas_acesso.signals import *
 
 
 class ContasAcessoConfig(AppConfig):

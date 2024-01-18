@@ -1,6 +1,7 @@
 from django.db import models
 from projetos.models import Projeto
-
+# from contas_acesso.models import Contas
+# import contas_acesso.models
 
 # Create your models here.
 
@@ -14,9 +15,13 @@ class Pessoa(models.Model):
     class Meta:
         ...
         # db_table = 'projeto'
-    
+
     def _str_(self):
         return self.nome
+    
+    def save(self, *args, **kwargs):
+        pass
+
     
 class Pessoa_Projeto(models.Model):
     pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE)

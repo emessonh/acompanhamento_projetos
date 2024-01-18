@@ -48,6 +48,7 @@
     padding: 0;
     height: 70vh;
     position: relative;
+    /* background-color: #F6F4EB; */
 }
 
 .task-list{
@@ -68,20 +69,19 @@
 }
 
 .btn-confirm{
+    display: flex;
     background-color: #198754;
-    font-size: 19px;
-    height: 50px;
-    width: 210px;
+    font-size: 14pt;
+    height: 5vh;
+    width: 14%;
     margin-bottom: 10px;
     border-radius: 10px;
-    /* padding: 7px; */
-    padding-top: 7px;
-    padding-left: 21px;
-    /* display: flex; */
+    padding-top: 8px;
+    justify-content: center;
 }
 
 /* .btn-confirm p{
-    text-align: center;
+    margin: auto;
 } */
 
 
@@ -155,11 +155,11 @@ ul.messages li{
     color: black;
 }
 
-/* Botão para adicionar ao prjeto */
+/* Botão para adicionar ao projeto */
 
-.addproject-btn{
+/* .addproject-btn{
     color: black;
-}
+} */
 
 /* login */
 
@@ -170,6 +170,12 @@ ul.messages li{
 /* add dev ao projeto */
 .check-project{
     margin-bottom: 10px;
+}
+
+@media(max-width: 450px){
+    .btn-confirm{
+        width: 100%;
+    }
 }
 
 

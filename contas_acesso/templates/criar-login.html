@@ -9,15 +9,35 @@
     <title>Criar Login</title>
 </head>
 <body>
+    <!-- {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                {{message.tag}}
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+        
+    {% endif %} -->
+    
     <div class="flex-container">
         <div class="col-sm-3">
           <div class="card">
             <div class="card-body">
               <h2>Criar Login</h2>
-                  <form>
+                  <form method="POST">
+                      {% csrf_token %}
                       <div class="mb-3">
                         <label for="cpf" class="form-label">CPF</label>
-                        <input type="text" class='form-control' name="cpf" id="cpf" maxlength="14" placeholder="000.000.000-00" required>
+                        <input type="text" class='form-control' name="cpf" id="cpf" maxlength="14" placeholder="000.000.000-00"  required>
+
+                        {% if cpf %}
+                            <p>{{cpf}}</p>
+                        {% endif %}
+
+                        {% if cpf %}
+                            <p class="messagem-cpf">CPF não cadastrado</p>
+                        {% endif %}
                       </div>
                       <div class="mb-3">
                           <label for="nome" class="form-label">Nome</label>
