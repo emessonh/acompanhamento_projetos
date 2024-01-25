@@ -155,6 +155,15 @@ ul.messages li{
     color: black;
 }
 
+#link-projetos{
+    text-decoration: none;
+    color: black;
+}
+
+#estima-tempo-projeto{
+    color: black;
+}
+
 /* Botão para adicionar ao projeto */
 
 /* .addproject-btn{
@@ -177,5 +186,23 @@ ul.messages li{
         width: 100%;
     }
 }
+
+/* Página de projetos */
+
+#titulo-projeto{
+    /* color: red; */
+    text-align: center;
+}
+
+.flex-container{
+    display: flex;
+    /* Alinha verticalmente */
+    width: 100%; 
+    height: 100vh; 
+    /* Alinha horizontalmente */
+    align-items: center;
+    flex-direction: column;
+}
+
 
 

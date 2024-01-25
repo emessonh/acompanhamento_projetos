@@ -68,7 +68,7 @@
         {% endif %}
         {% for project in projetos %}
         <li class='task-item'>
-            <span>{{project.nome}}</span>
+            <span ><a href="mostrarprojeto/{{project.id}}" id="link-projetos">{{project.nome}}</a></span>
             
             
             <a href="delprojeto/{{project.id}}" class="delete-btn">
@@ -76,6 +76,9 @@
             </a>
             <a href="editprojeto/{{project.id}}" >
                 <span><i class="bi bi-pencil-square edit-btn" ></i></span>
+            </a>
+            <a href="" id="estima-tempo-projeto">
+                <span><i class="bi bi-clock-fill"></i></span>
             </a>
             
         </li>

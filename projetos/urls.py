@@ -24,6 +24,7 @@ urlpatterns = [
     path('addprojeto/', views.addProjeto),
     path('editprojeto/<int:id>', views.editProjeto),
     path('delprojeto/<int:id>', views.delProjeto),
+    path('mostrarprojeto/<int:id>', views.showProjeto),
     # Setores
     path('setores/', views.listarSetores),
     path('setores/addsetor/', views.addSetor),

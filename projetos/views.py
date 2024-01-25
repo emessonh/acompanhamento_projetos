@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.core.paginator import Paginator
 from django.contrib import messages
 from .forms import ProjectForm, SetorForm
-from django.contrib import auth
+# from django.contrib import auth
 # from .forms import StatusForm
 from .models import Setor, Status, Projeto 
 
@@ -137,7 +137,10 @@ def delProjeto(request, id):
     messages.success(request, 'Projeto deletado com sucesso')
     return redirect('/')
 
-# def showProjeto(request, id)
+def showProjeto(request, id):
+    projeto = get_object_or_404(Projeto, pk=id)
+    return render(request, 'projetos/viewprojeto.html', {'projeto': projeto})
+
 # Setores
     
 def listarSetores(request):

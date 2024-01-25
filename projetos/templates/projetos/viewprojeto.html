@@ -1,0 +1,18 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block title %} {{projeto.nome}} {% endblock %}
+
+{% block content %}
+    <h1 id="titulo-projeto">{{projeto.nome}}</h1>
+    <!-- <div class="flex-container">
+        <div class="col-sm-5">
+            <div class="card">
+                <div class="card-body">
+                    
+                </div>
+            </div> 
+             <p id="primeiro-acesso"><a href="criar-login/">Primeiro acesso? Clique aqui</a></p>
+        </div>
+    </div> -->
+{% endblock  %}
