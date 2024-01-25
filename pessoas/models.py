@@ -19,8 +19,8 @@ class Pessoa(models.Model):
     def _str_(self):
         return self.nome
     
-    def save(self, *args, **kwargs):
-        pass
+    # def save(self, *args, **kwargs):
+    #     pass
 
     
 class Pessoa_Projeto(models.Model):

@@ -25,17 +25,13 @@ def addDesenvolvedor(request):
         caracteres_cpf = ['.', '-']
         cpf = request.POST.get('cpf').replace('.', '', 3)
         cpf = cpf.replace('-', '')
-        # print(cpf)
         dev_existe = Pessoa.objects.filter(cpf=cpf)
-        # print(form)
         if form.is_valid() and not dev_existe:
             # cpf = form.cleaned_data['cpf']
             nome = form.cleaned_data['nome']
             area = form.cleaned_data['area']
             pessoa = Pessoa(cpf=cpf, nome=nome, area=area)
-            conta_acesso = Contas(cpf=pessoa)
             pessoa.save()
-            # conta_acesso.save()
             messages.success(request, 'Desenvolvedor adicionado com sucesso')
             return redirect('/desenvolvedor/')
         elif dev_existe:
@@ -70,14 +66,11 @@ def editDev(request, id):
             dev_existe = None
 
         if form.is_valid() and not dev_existe:
-            conta = Contas.objects.filter(cpf=dev.cpf)
+            # conta = Contas.objects.filter(cpf=dev.cpf)
             dev.cpf = cpf
             dev.nome = form.cleaned_data['nome']
             dev.area = form.cleaned_data['area']
             dev.save()
-            # conta.update(cpf=dev)
-            # conta.update(cpf=dev)
-            # print(conta.)
             messages.success(request, 'Edição realizada com sucesso')
             return redirect('/desenvolvedor/')
         elif dev_existe:

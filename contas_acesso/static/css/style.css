@@ -56,10 +56,22 @@ h2{
     color: black;
 }
 
-.messagem-cpf{
+.messagem-cpf, .msg-login{
     color: red;
     margin: 2px;
 }
+
+.msg-sucesso{
+    margin: 2px;
+    color: rgb(18, 201, 18);
+}
+
+.msg-login{
+    color: red;
+    margin: 2px;
+}
+
+
 
 
 

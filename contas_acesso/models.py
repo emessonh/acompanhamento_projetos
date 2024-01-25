@@ -6,7 +6,7 @@ from pessoas.models import Pessoa
 # Create your models here.
 
 class Contas(models.Model):
-    cpf = models.ForeignKey(Pessoa, on_delete=models.CASCADE, to_field='cpf', max_length=11, verbose_name='cpf')
+    cpf = models.CharField(unique=True, null=False, max_length=11)
     senha = models.CharField(null=True, max_length=50)
 
     # def save_cpf(self, *args, **kwargs):
