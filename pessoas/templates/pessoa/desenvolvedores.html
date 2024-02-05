@@ -3,6 +3,27 @@
 {% block title %}Desenvolvedores{% endblock  %}
 
 {% block content %}
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmar exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente excluir o desenvolvedor?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirma-exclusao">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class='offset-1 col-10 list-div'>
     <h1>Lista de desenvolvedores</h1>
 
@@ -28,7 +49,7 @@
         {% for dev in desenvolvedores %}
         <li class='task-item'>
             <span>{{dev.nome}}</span>
-            <a href="deldev/{{dev.id}}" class="delete-btn">
+            <a href="deldev/{{dev.id}}" class="delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <span><i class="bi bi-trash-fill trash-btn"></i></span>
             </a>
             <a href="editdev/{{dev.id}}" >

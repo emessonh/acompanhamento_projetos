@@ -1,4 +1,7 @@
 from django.db import models
+import datetime
+
+ano_atual = datetime.date.today()
 
 # Create your models here.
 
@@ -23,6 +26,7 @@ class Projeto(models.Model):
     situacao_atual = models.TextField(blank=True, null=True)
     prioridade = models.CharField(max_length=5)
     prazo = models.DateField(blank=True, null=True) # revisar
+    ano_desenvolvimento = models.CharField(null=False)
     link = models.CharField(blank=True, null=True, max_length=100)
     proximos_passos = models.TextField(blank=True, null=True)
     impedimentos = models.TextField(blank=True, null=True)

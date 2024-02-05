@@ -1,10 +1,13 @@
 from django import forms
 from django.forms import ModelForm
 from .models import Projeto, Setor, Status
+import datetime
+
 
 valores_situacao_atual = [('baixa', 'Baixa'), ('media', 'Média'), ('alta', 'Alta')]
 valores_sistema_critico = [(True, 'Sim'), (False, 'Não')]
 valores_pastas_responsaveis = [('gabinete', 'Gabinete'), ('SEGP', 'SEGP'), ('SEGI', 'SEGI'), ('SEPOGD', 'SEPOGD')]
+ano_atual = datetime.date.today()
 
 class ProjectForm(forms.Form):
     nome = forms.CharField(label='Nome', max_length=100)
@@ -13,6 +16,7 @@ class ProjectForm(forms.Form):
     situacao_atual = forms.CharField(required=False, label='Situação Atual')
     prioridade = forms.ChoiceField(choices=valores_situacao_atual)
     prazo = forms.DateField(required=False, label='Prazo', widget=forms.DateInput(attrs={'type': 'date'})) # revisar
+    ano_desenvolvimento = forms.CharField(required=True, max_length=4, label='Ano Desenvolvimento', initial=ano_atual.year)
     link = forms.CharField(required=False, label='Link', max_length=100)
     proximos_passos = forms.CharField(required=False, label='Próximos passos')
     impedimentos = forms.CharField(required=False, label='Impedimentos')

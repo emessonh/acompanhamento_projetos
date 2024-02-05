@@ -41,6 +41,7 @@ def addProjeto(request):
             situacao_atual = dados_form['situacao_atual']
             prioridade = dados_form['prioridade']
             prazo = dados_form['prazo']
+            ano_desenvolvimento = dados_form['ano_desenvolvimento']
             link = dados_form['link']
             proximos_passos = dados_form['proximos_passos']
             impedimentos = dados_form['impedimentos']
@@ -58,7 +59,7 @@ def addProjeto(request):
 
             # Instancia o projeto
             projeto = Projeto(nome=nome, sobre=sobre, status_id=status_id, situacao_atual=situacao_atual, 
-                            prioridade=prioridade, prazo=prazo, link=link, proximos_passos=proximos_passos, impedimentos=impedimentos, sistema_critico=sistema_critico, 
+                            prioridade=prioridade, prazo=prazo, ano_desenvolvimento=ano_desenvolvimento, link=link, proximos_passos=proximos_passos, impedimentos=impedimentos, sistema_critico=sistema_critico, 
                             setor_id=setor_id, pasta_responsavel=pasta_responsavel)
 
             # Salva  
@@ -87,6 +88,7 @@ def editProjeto(request, id):
             situacao_atual = dados_form['situacao_atual']
             prioridade = dados_form['prioridade']
             prazo = dados_form['prazo']
+            ano_desenvolvimento = dados_form['ano_desenvolvimento']
             link = dados_form['link']
             proximos_passos = dados_form['proximos_passos']
             impedimentos = dados_form['impedimentos']
@@ -101,6 +103,7 @@ def editProjeto(request, id):
             projeto.situacao_atual = situacao_atual
             projeto.prioridade = prioridade
             projeto.prazo = prazo
+            projeto.ano_desenvolvimento = ano_desenvolvimento
             projeto.link = link
             projeto.proximos_passos = proximos_passos
             projeto.impedimentos = impedimentos
@@ -108,13 +111,13 @@ def editProjeto(request, id):
             projeto.setor_id = setor_id
             projeto.pasta_responsavel = pasta_responsavel
             
-            # Verifica se a edição é possível
-            for p in projetos:
-                print(p.nome, projeto.nome)
-                print(p.setor_id_id, projeto.setor_id.id)
-                if p.nome.upper() == projeto.nome.upper() and p.setor_id_id == projeto.setor_id.id:
-                    messages.warning(request, 'Atenção! Projeto já existe')
-                    return redirect('/')
+            # # Verifica se a edição é possível
+            # for p in projetos:
+            #     print(p.nome, projeto.nome)
+            #     print(p.setor_id_id, projeto.setor_id.id)
+            #     if p.nome.upper() == projeto.nome.upper() and p.setor_id_id == projeto.setor_id.id:
+            #         messages.warning(request, 'Atenção! Projeto já existe')
+            #         return redirect('/')
 
             # Salva  
             projeto.save()
@@ -126,18 +129,18 @@ def editProjeto(request, id):
 
     else:
         dados_projeto = {'nome': projeto.nome, 'sobre': projeto.sobre, 'status_id': projeto.status_id, 'situacao_atual': projeto.situacao_atual, 'prioridade': projeto.prioridade,
-        'prazo': projeto.prazo, 'link': projeto.link, 'proximos_passos': projeto.proximos_passos, 'impedimentos': projeto.impedimentos, 'sistema_critico': projeto.sistema_critico,
+        'prazo': projeto.prazo, 'ano_desenvolvimento': projeto.ano_desenvolvimento, 'link': projeto.link, 'proximos_passos': projeto.proximos_passos, 'impedimentos': projeto.impedimentos, 'sistema_critico': projeto.sistema_critico,
         'setor_id': projeto.setor_id, 'pasta_responsavel': projeto.pasta_responsavel}
         form = ProjectForm(initial=dados_projeto)
         return render(request, 'projetos/editprojeto.html', {'form':form, 'projeto':projeto.nome})
 
 def delProjeto(request, id):
+    # print(id)
     projeto = get_object_or_404(Projeto, pk=id)
     projeto.delete()
     messages.success(request, 'Projeto deletado com sucesso')
     return redirect('/')
 
-# def showProjeto(request, id)
 # Setores
     
 def listarSetores(request):
