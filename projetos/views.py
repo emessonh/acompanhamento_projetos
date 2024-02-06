@@ -5,6 +5,8 @@ from .forms import ProjectForm, SetorForm
 from django.contrib import auth
 # from .forms import StatusForm
 from .models import Setor, Status, Projeto 
+from django.contrib.auth.decorators import login_required
+
 
 # Projetos
 
@@ -269,11 +271,11 @@ def editStatus(request, id):
         nova_cor = request.POST.get('cor')
         
         # verifica se o status já existe 
-        for s in status_banco:
-            # print(s.descricao, nova_descricao)
-            if s.descricao.upper() == nova_descricao.upper():
-                messages.warning(request, 'Atenção! Status já cadastrado')
-                return redirect('/status/')
+        # for s in status_banco:
+        #     # print(s.descricao, nova_descricao)
+        #     if s.descricao.upper() == nova_descricao.upper():
+        #         messages.warning(request, 'Atenção! Status já cadastrado')
+        #         return redirect('/status/')
 
         # Salva
         status.descricao = nova_descricao

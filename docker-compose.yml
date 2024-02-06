@@ -1,0 +1,13 @@
+version: '3'
+services:
+# abaixo vai o nome que ficará na imagem que é junto com o diretório do arquivo
+  image:
+      build: .
+      container_name: "django-container"
+      env_file:
+      - .env
+      ports:
+         - "8000:8000"
+         - "5432:5432"
+      volumes:
+          - .acompanhamento_projetos-master/:/acompanhamento_projetos-master

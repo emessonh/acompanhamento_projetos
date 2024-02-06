@@ -14,8 +14,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
 
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -86,10 +86,10 @@ WSGI_APPLICATION = 'sti.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': f'{os.getenv('db')}',
-        'USER': f'{os.getenv('user')}',
-        'PASSWORD': f'{os.getenv('password')}',
-        'HOST': f'{os.getenv('url')}',
+        'NAME': f"{os.getenv('db')}",
+        'USER': f"{os.getenv('user')}",
+        'PASSWORD': f"{os.getenv('password')}",
+        'HOST': f"{os.getenv('url')}",
         'PORT': '5432',
     }
 }
@@ -135,6 +135,11 @@ STATICFILES_DIRS = [
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+AUTHENTICATION_BACKENDS = [
+    'contas_acesso.auth_user',
+]
+# AUTH_USER_MODEL = "contas_acesso.Contas"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

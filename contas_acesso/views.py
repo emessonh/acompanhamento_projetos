@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from pessoas.models import Pessoa
 from contas_acesso.models import Contas
+from django.http import JsonResponse
+# from auth_user import Backend
 
 # Create your views here.
 
@@ -14,6 +16,9 @@ def login(request, msg_sucesso=None):
         if dev:
             dev = dev.get()
             if dev.cpf == cpf and dev.senha == senha_input:
+                # Backend.authenticate(request, dev.cpf, dev.senha)
+                # print(Backend.get_user().cpf)
+                
                 return redirect('/')
             else:
                 return render(request, 'login.html', {'msg_login': 'CPF e ou Senha incorretos', 'cpf':cpf})
@@ -67,3 +72,11 @@ def criar_login(request):
     else:
         return render(request, 'criar-login.html')
     
+def mostra_nome_cadastro(request):
+    if request.method == 'POST':
+        cpf = request.POST['cpf']
+        cpf = cpf.replace('.', '').replace('-', '')
+        conta = Pessoa.objects.filter(cpf=cpf).first()
+        if conta:
+            return JsonResponse({'nome': conta.nome})
+    return JsonResponse({'error': 'CPF não encontrado'}, status=400)

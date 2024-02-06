@@ -11,11 +11,10 @@
 // });
 
 $(document).ready(function() {
-    // console.log('entrou aqui');
     $('#cpf').mask('000.000.000-00');
 });
 
-// 
+// Faz o modal de delete funcionar
 
 var link = null;
 $('.delete-btn').on('click', function(){
@@ -23,6 +22,5 @@ $('.delete-btn').on('click', function(){
 });
 
 $('#confirma-exclusao').on('click', function () {
-    // var Link = $('.delete-btn').attr('href');
     window.location.href = link;
 })
