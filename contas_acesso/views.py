@@ -3,7 +3,7 @@ from django.contrib import messages
 from pessoas.models import Pessoa
 from contas_acesso.models import Contas
 from django.http import JsonResponse
-# from auth_user import Backend
+from contas_acesso.auth_user import Backend
 
 # Create your views here.
 
@@ -12,16 +12,18 @@ def login(request, msg_sucesso=None):
         cpf = request.POST.get('cpf').replace('.', '', 3)
         cpf = cpf.replace('-', '')
         senha_input = request.POST.get('password')
-        dev = Contas.objects.filter(cpf=cpf)
+        # dev = Contas.objects.filter(cpf=cpf)
+        dev = Backend.authenticate(request, cpf, senha_input)
         if dev:
-            dev = dev.get()
-            if dev.cpf == cpf and dev.senha == senha_input:
+            # dev = dev.get()
+            # if dev.cpf == cpf and dev.senha == senha_input:
                 # Backend.authenticate(request, dev.cpf, dev.senha)
-                # print(Backend.get_user().cpf)
-                
-                return redirect('/')
-            else:
-                return render(request, 'login.html', {'msg_login': 'CPF e ou Senha incorretos', 'cpf':cpf})
+                # print(Backend.get_user(dev.cpf).cpf)
+            return redirect('/')
+        elif dev == False:
+            return render(request, 'login.html', {'msg_login': 'CPF e ou Senha incorretos', 'cpf':cpf})  
+            # else:
+            #     return render(request, 'login.html', {'msg_login': 'CPF e ou Senha incorretos', 'cpf':cpf})
         else:
             return render(request, 'login.html', {'msg_login': 'Usuário não cadastrado', 'cpf': cpf})
     else:
@@ -31,6 +33,7 @@ def alterar_senha(request):
     if request.method == 'POST':
         cpf = request.POST.get('cpf').replace('.', '', 3)
         cpf = cpf.replace('-', '')
+        senha_antiga = request.POST['old-password']
         nova_senha = request.POST.get('nova-senha')
         confirmacao_senha = request.POST.get('confirmacao-senha')
         dev = Contas.objects.filter(cpf=cpf)
@@ -42,9 +45,12 @@ def alterar_senha(request):
                 if nova_senha != confirmacao_senha:
                     return render(request, 'alterar_senha.html', {'msg': 'Atenção! Senhas diferentes, tente novamante', 'cpf': cpf})
                 else:
-                    dev.senha = confirmacao_senha
-                    dev.save()
-                    return redirect('login', msg_sucesso='Senha alterada com sucesso')       
+                    if senha_antiga == dev.senha:
+                        dev.senha = confirmacao_senha
+                        dev.save()
+                        return redirect('login', msg_sucesso='Senha alterada com sucesso') 
+                    else:
+                        return render(request, 'alterar_senha.html', {'msg': 'Atenção! Senha anterior incorreta!'})      
         else:
             return render(request, 'alterar_senha.html', {'msg': 'Usuário não cadastrado', 'cpf': cpf})
     else:

@@ -24,5 +24,6 @@ urlpatterns = [
     path('login/alterar-senha/', views.alterar_senha),
     path('login/criar-login/', views.criar_login),
     path('login/criar-login/mostra-nome', views.mostra_nome_cadastro),
+    path('login/alterar-senha/mostra-nome', views.mostra_nome_cadastro),
     
 ]

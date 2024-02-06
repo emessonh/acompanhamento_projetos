@@ -8,12 +8,12 @@ class Backend(BaseBackend):
             if senha == user.senha:
                 return user
             else:
-                return None
+                return False
         except Contas.DoesNotExist:
             return None
 
-    def get_user(user_id):
+    def get_user(cpf):
         try:
-            return Contas.objects.get(pk=user_id)
+            return Contas.objects.get(cpf=cpf)
         except Contas.DoesNotExist:
             return None
